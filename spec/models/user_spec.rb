@@ -8,15 +8,9 @@ RSpec.describe User, type: :model do
   describe 'ユーザー新規登録' do
     context '新規登録がうまくいく時' do
       it 'nickname、email、password、password_confirmation、first_name、family_name、first_name_kana、family_name_kana、birthが存在すれば登録できる' do
-        @user.password = '123456'
-        @user.password_confirmation = '123456'
         expect(@user).to be_valid
       end
-      it 'passwordが6文字以上であれば登録できること' do
-        @user.password = '123456'
-        @user.password_confirmation = '123456'
-        expect(@user).to be_valid
-      end
+
     end
     context '新規登録がうまくいかない時' do
       it 'nicknameが空では登録できない' do
@@ -71,23 +65,28 @@ RSpec.describe User, type: :model do
       end
       it '使用されているメールアドレスの場合登録できない' do
         @user.email = 'tarou@gmail.com'
+        @user.password = 'aaaaa1'
+        @user.password_confirmation = 'aaaaa1'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is invalid")
       end
       it '半角英語のみのpasswordは登録できない' do
         @user.password = 'aaaaaa'
+        @user.password_confirmation = 'aaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password is invalid")
       end
       it '数字のみのpassworsは登録できない' do
         @user.password = '111111'
+        @user.password_confirmation = '111111'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password is invalid")
       end
       it '全角英数混合のpassworsは登録できない' do
         @user.password = 'Aaaaaaa'
+        @user.password_confirmation = 'Aaaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password is invalid")
       end
       it '姓に全角（漢字・ひらがな・カタカナ）以外は登録できない' do
         @user.family_name = 'aaaaaa'
