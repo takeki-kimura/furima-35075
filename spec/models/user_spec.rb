@@ -10,7 +10,6 @@ RSpec.describe User, type: :model do
       it 'nickname、email、password、password_confirmation、first_name、family_name、first_name_kana、family_name_kana、birthが存在すれば登録できる' do
         expect(@user).to be_valid
       end
-
     end
     context '新規登録がうまくいかない時' do
       it 'nicknameが空では登録できない' do
@@ -64,11 +63,10 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Email is invalid")
       end
       it '使用されているメールアドレスの場合登録できない' do
-        @user.email = 'tarou@gmail.com'
-        @user.password = 'aaaaa1'
-        @user.password_confirmation = 'aaaaa1'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        @user.save
+        another_user = FactoryBot.build(:user, email: @user.email)
+        another_user.valid?
+        expect(another_user.errors.full_messages).to include("Email has already been taken")
       end
       it '半角英語のみのpasswordは登録できない' do
         @user.password = 'aaaaaa'
