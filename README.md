@@ -29,7 +29,7 @@ Association
 | status_id      | integer   | null: false                    |
 | fee_id         | integer   | null: false                    |
 | prefectures_id | integer   | null: false                    |
-| date_id        | integer   | null: false                    |
+| day_id         | integer   | null: false                    |
 | description    | text      | null: false                    |
 
 Association
