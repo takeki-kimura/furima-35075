@@ -48,14 +48,39 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Prefectures must be other than 1")
       end
       it "priceが299以下だと登録できない" do
-        @item.price = "299"
+        @item.price = 299
         @item.valid?
         expect(@item.errors[:price]).to include("must be greater than or equal to 300")
       end
       it "priceが1000000以上だと登録できない" do
-        @item.price = "10000000"
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors[:price]).to include("must be less than or equal to 9999999")
+      end
+      it "画像がない場合は登録できない" do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors[:image]).to include("can't be blank")
+      end
+      it "商品説明がない場合は登録できない" do
+        @item.description = nil 
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Description can't be blank")
+      end
+      it "値段が半角英数混合では登録できない" do
+        @item.price = "aAbBcC012"
+        @item.valid?
+        expect(@item.errors[:price]).to include("is not a number")
+      end
+      it "値段が半角英数だけでは登録できない" do
+        @item.price = "abcdefg"
+        @item.valid?
+        expect(@item.errors[:price]).to include("is not a number")
+      end
+      it "day_idが未選択の場合は登録できない" do
+        @item.day_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Day must be other than 1")
       end
     end
   end

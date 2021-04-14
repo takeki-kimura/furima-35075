@@ -14,12 +14,12 @@ class Item < ApplicationRecord
     validates :name
     validates :category_id
     validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }, format: { with: /\A[0-9]+\z/ }
-    validates :user
     validates :status_id
     validates :fee_id
     validates :prefectures_id
     validates :day_id
     validates :description
+    validates :image
   end
   
   with_options numericality: { other_than: 1 } do

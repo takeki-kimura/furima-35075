@@ -3,7 +3,7 @@ FactoryBot.define do
 
     name           {"名前"}
     category_id    {2}
-    price          {"5000"}
+    price          {5000}
     status_id      {2}
     fee_id         {2}
     prefectures_id {2}
