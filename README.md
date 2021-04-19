@@ -14,11 +14,11 @@
 | birth              | date   | null: false                   |
 
 Association
- has_many :products
+ has_many :items
  has_many :orders
 
 
-## products テーブル
+## items テーブル
 
 | Column         | Type      | Options                        |
 |----------------|-----------|--------------------------------|
@@ -40,19 +40,19 @@ Association
 
 | Column       | Type    | Options                       |
 |--------------|---------|-------------------------------|
-|product_id    | integer |null: false, foreign_key: true |
+|item_id       | integer |null: false, foreign_key: true |
 |user_id       | integer |null: false, foreign_key: true |
 
 Association
  belongs_to :user
- belongs_to :product
+ belongs_to :item
  has_one    :address
 
 ## addresses テーブル
 
 | Column         | Type    | Options                        |
 |----------------|---------|--------------------------------|
-| postal_code    | string  | null:false                     |
+| postal_code    | string  | null: false                    |
 | prefectures_id | integer | null: false                    |
 | city           | string  | null: false                    |
 | number         | string  | null: false                    |
