@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root to: "items#index"
 
-  get 'items/search'
+  #get 'items/search'
 
   resources :items do
     resources :orders, only: [:index, :create]
